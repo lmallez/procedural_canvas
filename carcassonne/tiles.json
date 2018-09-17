@@ -1,0 +1,60 @@
+{
+    "init" : {
+        "name": "init",
+        "img": "",
+        "top": null,
+        "bot": null,
+        "left": null,
+        "right": null
+    },
+    "tiles" : [
+        {
+            "name": "a",
+            "img": "a.png",
+            "top": 0,
+            "bot": 1,
+            "left": 1,
+            "right": 1
+        },
+        {
+            "name": "b",
+            "img": "b.png",
+            "top": 1,
+            "bot": 1,
+            "left": 0,
+            "right": 1
+        },
+        {
+            "name": "c",
+            "img": "c.png",
+            "top": 1,
+            "bot": 1,
+            "left": 0,
+            "right": 0
+        },
+        {
+            "name": "d",
+            "img": "d.png",
+            "top": 1,
+            "bot": 0,
+            "left": 0,
+            "right": 1
+        },
+        {
+            "name": "e",
+            "img": "e.png",
+            "top": 1,
+            "bot": 1,
+            "left": 1,
+            "right": 0
+        },
+        {
+            "name": "f",
+            "img": "f.png",
+            "top": 1,
+            "bot": 0,
+            "left": 1,
+            "right": 0
+        }
+    ]
+}
