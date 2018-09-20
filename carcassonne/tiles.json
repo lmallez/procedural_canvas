@@ -1,60 +1,135 @@
-{
-    "init" : {
-        "name": "init",
-        "img": "",
-        "top": null,
-        "bot": null,
-        "left": null,
-        "right": null
+[
+    {
+        "img": "city1.png",
+        "top": 2,
+        "bot": 0,
+        "left": 0,
+        "right": 0
     },
-    "tiles" : [
-        {
-            "name": "a",
-            "img": "a.png",
-            "top": 0,
-            "bot": 1,
-            "left": 1,
-            "right": 1
-        },
-        {
-            "name": "b",
-            "img": "b.png",
-            "top": 1,
-            "bot": 1,
-            "left": 0,
-            "right": 1
-        },
-        {
-            "name": "c",
-            "img": "c.png",
-            "top": 1,
-            "bot": 1,
-            "left": 0,
-            "right": 0
-        },
-        {
-            "name": "d",
-            "img": "d.png",
-            "top": 1,
-            "bot": 0,
-            "left": 0,
-            "right": 1
-        },
-        {
-            "name": "e",
-            "img": "e.png",
-            "top": 1,
-            "bot": 1,
-            "left": 1,
-            "right": 0
-        },
-        {
-            "name": "f",
-            "img": "f.png",
-            "top": 1,
-            "bot": 0,
-            "left": 1,
-            "right": 0
-        }
-    ]
-}
+    {
+        "img": "city1rse.png",
+        "top": 2,
+        "bot": 1,
+        "left": 0,
+        "right": 1
+    },
+    {
+        "img": "city1rsw.png",
+        "top": 2,
+        "bot": 1,
+        "left": 1,
+        "right": 0
+    },
+    {
+        "img": "city1rswe.png",
+        "top": 2,
+        "bot": 1,
+        "left": 1,
+        "right": 1
+    },
+    {
+        "img": "city1rwe.png",
+        "top": 2,
+        "bot": 0,
+        "left": 1,
+        "right": 1
+    },
+    {
+        "img": "city2nw.png",
+        "top": 2,
+        "bot": 0,
+        "left": 2,
+        "right": 0
+    },
+    {
+        "img": "city2nwr.png",
+        "top": 2,
+        "bot": 1,
+        "left": 2,
+        "right": 1
+    },
+    {
+        "img": "city2we.png",
+        "top": 0,
+        "bot": 0,
+        "left": 2,
+        "right": 2
+    },
+    {
+        "img": "city3.png",
+        "top": 2,
+        "bot": 0,
+        "left": 2,
+        "right": 2
+    },
+    {
+        "img": "city3r.png",
+        "top": 2,
+        "bot": 1,
+        "left": 2,
+        "right": 2
+    },
+    {
+        "img": "city4.png",
+        "top": 2,
+        "bot": 2,
+        "left": 2,
+        "right": 2
+    },
+    {
+        "img": "city11ne.png",
+        "top": 2,
+        "bot": 0,
+        "left": 0,
+        "right": 2
+    },
+    {
+        "img": "city11we.png",
+        "top": 0,
+        "bot": 0,
+        "left": 2,
+        "right": 2
+    },
+    {
+        "img": "cloister.png",
+        "top": 0,
+        "bot": 0,
+        "left": 0,
+        "right": 0
+    },
+    {
+        "img": "cloisterr.png",
+        "top": 0,
+        "bot": 1,
+        "left": 0,
+        "right": 0
+    },
+    {
+        "img": "road2ns.png",
+        "top": 1,
+        "bot": 1,
+        "left": 0,
+        "right": 0
+    },
+    {
+        "img": "road2sw.png",
+        "top": 0,
+        "bot": 1,
+        "left": 1,
+        "right": 0
+    },
+    {
+        "img": "road3.png",
+        "top": 0,
+        "bot": 1,
+        "left": 1,
+        "right": 1
+    },
+    {
+        "img": "road4.png",
+        "top": 1,
+        "bot": 1,
+        "left": 1,
+        "right": 1
+    }
+]

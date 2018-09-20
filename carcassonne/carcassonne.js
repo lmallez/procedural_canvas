@@ -2,25 +2,48 @@
 let canvas = document.getElementById("carcassonne");
 let ctx = canvas.getContext("2d");
 
-const rect_size = {x: 40, y: 40};
+const rect_size = {x: 50, y: 50};
 const size = {x: parseInt(canvas.width / rect_size.x), y: parseInt(canvas.height / rect_size.y)};
 
 let xmlhttp = new XMLHttpRequest();
 xmlhttp.onreadystatechange = function() {
     if (this.readyState === 4 && this.status === 200) {
-        var tiles = JSON.parse(this.responseText);
-        gen_map(tiles);
+        tiles = JSON.parse(this.responseText);
+        gen_map();
     }
 };
 xmlhttp.open("GET", "tiles.json", true);
 xmlhttp.send();
 
-function print_img(url, x, y, l, h)
+function print_img(url, rot, x, y, l, h)
 {
     let img = new Image;
     img.src = "./assets/" + url;
     img.onload = function(){
-        ctx.drawImage(img, x, y, l, h);
+        switch (rot) {
+            case "top":
+                ctx.drawImage(img, x, y, l, h);
+                break;
+            case "right":
+                ctx.rotate(Math.PI / 2);
+                ctx.drawImage(img, y, -x, h, -l);
+
+                ctx.rotate(-Math.PI / 2);
+                break;
+            case "bot":
+                ctx.rotate(Math.PI);
+                ctx.drawImage(img, -x, -y, -l, -h);
+
+
+                ctx.rotate(-Math.PI);
+                break;
+            case "left":
+                ctx.rotate(3 * Math.PI / 2);
+                ctx.drawImage(img, -y, x, -h, l);
+                ctx.rotate(-3 * Math.PI / 2);
+                break;
+            default:
+        }
     };
 }
 
@@ -30,20 +53,14 @@ function print_tile(pos, tile, tile_list)
     if (tile.length > 0) {
         let larg = Math.ceil(Math.sqrt(tile.length));
         let spos = {x: 0, y: 0};
-        for (let i = 0; i < tile.length; i++) {
-            print_img(
-                tile_list[tile[i]].img,
-                pos.x * rect_size.x + pos.x + spos.x * rect_size.x / larg,
-                pos.y * rect_size.y + pos.y + spos.y * rect_size.y / larg,
-                rect_size.x / larg,
-                rect_size.y / larg
-            );
-            spos.x++;
-            if (spos.x >= larg) {
-                spos.y++;
-                spos.x = 0;
-            }
-        }
+        print_img(
+            tile_list[tile[0]].img,
+            tile_list[tile[0]].rot,
+            pos.x * rect_size.x,
+            pos.y * rect_size.y,
+            rect_size.x,
+            rect_size.y
+        );
     }
     ctx.stroke();
 }
@@ -70,7 +87,6 @@ function init_map(tiles) {
     }
     return map
 }
-
 
 
 function isConnection(tile_a, tile_b, dir) {
@@ -141,19 +157,84 @@ function end_gen(map) {
 
 function gen(map, tiles)
 {
-    while (!end_gen(map)) {
-        pos = {x: parseInt(Math.random() * size.x), y: parseInt(Math.random() * size.y)};
+    ptn_not_set = [];
+    for (let i = 0; i < size.x; i++)
+    {
+        for (let j = 0; j < size.y; j++) {
+            recur(map, {x: i, y: j}, [], tiles);
+            ptn_not_set.push({x: i, y: j});
+        }
+    }
+    while (ptn_not_set.length > 0) {
+        pos = ptn_not_set[parseInt(Math.random() * ptn_not_set.length)];
         if (map[pos.y][pos.x].length > 1) {
             id = map[pos.y][pos.x][parseInt(Math.random() * map[pos.y][pos.x].length)];
             map[pos.y][pos.x] = [id];
             recur(map, pos, [], tiles);
         }
+        for (let i = 0; i < ptn_not_set.length; i++) {
+            if (map[ptn_not_set[i].y][ptn_not_set[i].x].length <= 1) {
+                ptn_not_set.splice(i, 1);
+                i--;
+            }
+        }
     }
 }
 
-function gen_map(tiles)
+let map = null;
+let tiles = null;
+
+function tiles_rot_left(tiles)
 {
-    let map = init_map(tiles.tiles);
-    gen(map, tiles.tiles);
-    print_map(map, tiles.tiles)
+    return {
+        "img": tiles.img,
+        "top": tiles.right,
+        "left": tiles.top,
+        "bot": tiles.left,
+        "right": tiles.bot,
+        "rot": "left"
+    }
+}
+
+function tiles_rot_right(tiles)
+{
+    return {
+        "img": tiles.img,
+        "top": tiles.left,
+        "left": tiles.bot,
+        "bot": tiles.right,
+        "right": tiles.top,
+        "rot": "right"
+    }
+}
+
+function tiles_rot_180(tiles) {
+    return {
+        "img": tiles.img,
+        "top": tiles.bot,
+        "left": tiles.right,
+        "bot": tiles.top,
+        "right": tiles.left,
+        "rot": "bot"
+    }
+}
+
+function tiles_rotate(tiles)
+{
+    let j = tiles.length;
+    for (let i = 0; i < j; i++) {
+        tiles[i].rot = "top";
+        tiles.push(tiles_rot_left(tiles[i]));
+        tiles.push(tiles_rot_right(tiles[i]));
+        tiles.push(tiles_rot_180(tiles[i]));
+    }
+}
+
+function gen_map()
+{
+    tiles_rotate(tiles);
+    map = init_map(tiles);
+    console.log(map);
+    gen(map, tiles);
+    print_map(map, tiles);
 }
